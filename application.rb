@@ -79,7 +79,7 @@ post '/login' do
   if user && user.password.eql?(hash_password(user.timestamp, params[:password]))
     session_start!
     session[:name] = user._id
-    flash.now[:notice] = "Welcome #{session[:name]}!"
+    flash[:notice] = "Welcome #{session[:name]}!"
     redirect '/'
   else
     flash.now[:notice] = "There was an error loging in" 
@@ -127,9 +127,7 @@ get '/' do
   unless session?
     erb :index
   else
-    #@favourites = {}
     @user = User.find(session[:name])
-    #user.fav_mp3s.each { |mp3| @favourites[mp3] = mp3 }
     @mp3_files = Mp3File.all()
     erb :home
   end

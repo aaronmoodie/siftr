@@ -1,23 +1,20 @@
+<p id="player">
+
+  <audio preload="auto" autobuffer>
+    <source src="">
+  </audio>
+
+  <a href="#" id="play-player">▶</a>
+  <a href="#" id="pause-player">❚&#x200a;❚</a>
+</p>
+
 <div id="container">
   <% if flash[:notice] %>
     <p><span class="approved"><%= flash[:notice] %></span></p>
   <% end %>
     <ul>
-    	<% @mp3_files.each do |mp3| %>	
-    	  <li id="<%= mp3.id %>"><a href="<%= mp3.url %>">&rarr; <%= mp3.title %></a> <span> <%= mp3.artist %></span></li>
+    	<% @mp3_files.each do |mp3| %>
+    	  <li id="<%= mp3.id %>"><a href="<%= mp3.url %>" class="mp3">&rarr; <%= mp3.title %></a> <span> <%= mp3.artist %></span></li>
     	<% end %>
     </ul>
 </div>
-<script type="text/javascript" charset="utf-8"> 
-  $(document).ready(function(){
-    $.ajax({
-      url: '/fav.json',
-      dataType: 'json',
-      data: '',
-      success: load_playlist,
-      error: function(request, status, error) {
-        //alert(status+': '+error);
-      }
-    });
-  });
-</script>

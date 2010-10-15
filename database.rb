@@ -27,4 +27,6 @@ class Mp3File
     key :file_name,     String
     key :url,           String
     key :date,          Date
+
+    validates_uniqueness_of :url
 end

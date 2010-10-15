@@ -3,7 +3,7 @@
   <h4><a href="/<%= @user %>"><%= @user %></a>'s playlist</h4>
   <ul>
   	<% @mp3_files.each do |mp3| %>	
-  	  <li id="<%= mp3.id %>"><a href="<%= mp3.url %>">&rarr; <%= mp3.title %></a> <span> <%= mp3.artist %></span></li>
+  	  <li id="<%= mp3.id %>"><a href="<%= mp3.url %>"><%= mp3.title %></a> <span> <%= mp3.artist %></span></li>
   	<% end %>
   </ul>
 </div>

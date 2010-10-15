@@ -141,16 +141,18 @@ end
 
 
 get '/favourite/:id' do
-  @mp3_file = Mp3File.find(params[:id])
-  @mp3_file.favourite = true
-  @mp3_file.save
+  session!
+  user = User.find(session[:name])
+  user.fav_mp3s << params[:id]
+  user.save
 end
 
 
 get '/unfavourite/:id' do
-  @mp3_file = Mp3File.find(params[:id])
-  @mp3_file.favourite = false
-  @mp3_file.save
+  session!
+  user = User.find(session[:name])
+  user.fav_mp3s.reject! { |id| id =~ params[:id] }
+  user.save
 end
 
 

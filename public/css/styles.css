@@ -94,3 +94,15 @@ fieldset {
 
 li.playing:before { content: '♫'; position: absolute; margin: 5px 0px 0px -26px; color: #777; font-size: 0.8em; }
 
+a.favourite {
+  text-decoration:none;
+  color:#d7d7d7;
+}
+
+
+a.unfavourite {
+  text-decoration:none;
+  color:#ffd200;
+}
+
+

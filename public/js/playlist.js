@@ -1,92 +1,55 @@
-var playItem = 0;
+var audio = $('audio')
 
-var load_playlist = function(myPlayList) {
-  window.myPlayList = myPlayList;
-  
-  // Local copy of jQuery selectors, for performance.
-	var jpPlayTime = $("#jplayer_play_time");
-	var jpTotalTime = $("#jplayer_total_time");
+audio.bind('play',function() {
 
-	$("#jquery_jplayer").jPlayer({
-		ready: function() {
-			displayPlayList();
-			playListInit(true); // Parameter is a boolean for autoplay.
-		},
-		oggSupport: false
-	})
-	.jPlayer("onProgressChange", function(loadPercent, playedPercentRelative, playedPercentAbsolute, playedTime, totalTime) {
-		jpPlayTime.text($.jPlayer.convertTime(playedTime));
-		jpTotalTime.text($.jPlayer.convertTime(totalTime));
-	})
-	.jPlayer("onSoundComplete", function() {
-		playListNext();
-	});
+  $('#play-player').hide().siblings().show();
 
-	$("#jplayer_previous").click( function() {
-		playListPrev();
-		$(this).blur();
-		return false;
-	});
+}).bind('pause', function() {
 
-	$("#jplayer_next").click( function() {
-		playListNext();
-		$(this).blur();
-		return false;
-	});
-}
+  $('#pause-player').hide().siblings().show();
 
-function displayPlayList() {
-	$("#jplayer_playlist ul").empty();
-	for (i=0; i < myPlayList.length; i++) {
-		var listItem = (i == myPlayList.length-1) ? "<li class='jplayer_playlist_item_last'>" : "<li>";
-		listItem += "<input type='checkbox' name='"+myPlayList[i].id+"'"+(myPlayList[i].favourite == false ? "" : "checked='checked'")+">";
-		listItem += "<a href='#' id='jplayer_playlist_item_"+i+"' tabindex='1'>"+ myPlayList[i].title + " - " + myPlayList[i].artist +"</a> (<a id='jplayer_playlist_get_mp3_"+i+"' href='" + myPlayList[i].url + "' tabindex='1'>mp3</a>)</li>";
-		$("#jplayer_playlist ul").append(listItem);
-		$("#jplayer_playlist_item_"+i).data( "index", i ).click( function() {
-			var index = $(this).data("index");
-			if (playItem != index) {
-				playListChange( index );
-			} else {
-				$("#jquery_jplayer").jPlayer("play");
-			}
-			$(this).blur();
-			return false;
-		});
-		$("#jplayer_playlist_get_mp3_"+i).data( "index", i ).click( function() {
-			var index = $(this).data("index");
-			$("#jplayer_playlist_item_"+index).trigger("click");
-			$(this).blur();
-			return false;
-		});
-	}
-}
+}).bind('ended', function() {
 
-function playListInit(autoplay) {
-	if(autoplay) {
-		playListChange( playItem );
-	} else {
-		playListConfig( playItem );
-	}
-}
+  $('li.playing').next().find('.mp3').click();
 
-function playListConfig( index ) {
-	$("#jplayer_playlist_item_"+playItem).removeClass("jplayer_playlist_current").parent().removeClass("jplayer_playlist_current");
-	$("#jplayer_playlist_item_"+index).addClass("jplayer_playlist_current").parent().addClass("jplayer_playlist_current");
-	playItem = index;
-	$("#jquery_jplayer").jPlayer("setFile", myPlayList[playItem].url);
-}
+});
 
-function playListChange( index ) {
-	playListConfig( index );
-	$("#jquery_jplayer").jPlayer("play");
-}
+$('#play-player, #pause-player').click(function(e) {
+  e.preventDefault();
 
-function playListNext() {
-	var index = (playItem+1 < myPlayList.length) ? playItem+1 : 0;
-	playListChange( index );
-}
+  if(!$('source', audio[0]).attr('src').length) {
+    $('#container li').first().find('.mp3').click();
+    return;
+  }
 
-function playListPrev() {
-	var index = (playItem-1 >= 0) ? playItem-1 : myPlayList.length-1;
-	playListChange( index );
-}
+  if (!audio[0].paused) { audio[0].pause(); }
+  else { audio[0].play(); }
+
+  $(this).hide().siblings().show();
+
+})
+
+$('li .mp3').click(function(e) {
+  e.preventDefault();
+
+  $(this).parent().addClass('playing').siblings().removeClass('playing');
+
+  $('source', audio[0]).attr('src', $(this).attr('href'));
+  audio[0].load();
+  audio[0].play();
+})
+
+$(document).keydown(function(e) {
+  var unicode = e.charCode ? e.charCode : e.keyCode;
+  if (unicode == 39) {
+    $('li.playing').next().find('.mp3').click();
+  } else if (unicode == 37) {
+    $('li.playing').prev().find('.mp3').click();
+  } else if (unicode == 70) {
+    alert('favourite')
+  }
+})
+
+
+// skip to end of track
+// $(audio)[0].currentTime = $(audio)[0].duration - 2

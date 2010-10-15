@@ -41,10 +41,13 @@ $('li .mp3').click(function(e) {
 
 $(document).keydown(function(e) {
   var unicode = e.charCode ? e.charCode : e.keyCode;
+     // right arrow
   if (unicode == 39) {
     $('li.playing').next().find('.mp3').click();
+    // back arrow
   } else if (unicode == 37) {
     $('li.playing').prev().find('.mp3').click();
+    // 'f'
   } else if (unicode == 70) {
     $('li.playing').find('a').last().click();
   }

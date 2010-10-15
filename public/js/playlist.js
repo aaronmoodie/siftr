@@ -46,7 +46,7 @@ $(document).keydown(function(e) {
   } else if (unicode == 37) {
     $('li.playing').prev().find('.mp3').click();
   } else if (unicode == 70) {
-    alert('favourite')
+    $('li.playing').find('a').last().click();
   }
 })
 

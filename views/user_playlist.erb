@@ -12,8 +12,8 @@
   <ul>
   	<% @mp3_files.each do |mp3| %>
   	  <li>
-  	    <a href="<%= mp3.url %>" class="mp3"><%= mp3.title %></a>
-  	    <span> <%= mp3.artist %></span>
+  	    <a href="<%= mp3.url %>" class="mp3"><%= mp3.title || 'untitled' %></a>
+  	    <span> <%= mp3.artist || 'untitled' %></span>
   	    <a id="<%= mp3.id %>" href="#" class="unfavourite">★</a>
   	  </li>
   	<% end %>

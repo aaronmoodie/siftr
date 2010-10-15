@@ -50,6 +50,9 @@ $(document).keydown(function(e) {
     // 'f'
   } else if (unicode == 70) {
     $('li.playing').find('a').last().click();
+    // spacebar
+  } else if (unicode == 32) {
+    $('#player a:visible').click();
   }
 })
 

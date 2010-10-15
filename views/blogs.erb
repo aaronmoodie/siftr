@@ -1,0 +1,16 @@
+<% if @error %>
+<p>Sorry, there was an error.</p>
+<% end %>
+
+<ul>
+	<% @blogs.each do |blog| %>	
+		<li>
+			<a href="<%= blog.url %>" target="_blank"><%= blog.name %></a> <span class="delete"><a href="/blogs/delete/<%= blog.id %>">Delete</a></span>
+		</li>
+	<% end %>
+</ul>
+<form action="/blogs" method="POST">
+	<fieldset>
+		<input type="text" name="new_url" value="" id="new_url"> <button type="submit">add blog</button>
+	</fieldset>
+</form>

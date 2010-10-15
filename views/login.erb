@@ -1,0 +1,10 @@
+<% if flash[:notice] %>
+  <p><span class="error"><%= flash[:notice] %></span></p>
+<% end %>
+<form action="/login" method="POST">
+	<fieldset>
+		<p><label for="username">username</label> <input type="text" name="username" value="" id="user"></p>
+		<p><label for="password">password</label> <input type="password" name="password" value="" id="pass"></p> 
+		<p><button type="submit">login</button> <a href="/signup">signup</a></p>
+	</fieldset>
+</form>

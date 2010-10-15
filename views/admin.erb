@@ -1,0 +1,7 @@
+<div id="container">
+      <ul>
+      	<% @users.each do |user| %>	
+      	  <li> <span><%= user._id %>  <%= user.email %></span> <a href="/admin/delete/<%= user._id %>">delete</a></li>
+      	<% end %>
+      </ul>
+</div>

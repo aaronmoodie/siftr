@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>siftr</title>
+	<meta name="author" content="Aaron Moodie">
+	<link rel="stylesheet" href="/css/styles.css" type="text/css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+
+
+</head>
+<body>
+	<div id="container">
+		<div id="head">
+			<h1><a href="/">siftr</a></h1>
+			<div id="nav">
+			<% if session? %>
+  	  <a href="/">Home</a><a href="/<%= session[:name] %>">Playlist</a><a href="/blogs">Sources</a><a href="/logout">Logout</a>
+  	  <% else %>
+  	  <a href="/login">Login</a>
+  	  <% end %>
+  	  </div>
+      <div class="clear"><!-- comment --></div>
+		</div>
+		<div id="body">
+			<%= yield %>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<p><% flash[:notice] %></p>
+<p>Fill in the details to sign up</p>
+<form action="/signup" method="POST">
+	<fieldset>
+	  <p><label for="username">fullname</label> <input type="text" name="fullname" value="" id="user"></p>
+		<p><label for="username">username</label> <input type="text" name="username" value="" id="user"></p>
+		<p><label for="password">password</label> <input type="password" name="password" value="" id="pass"></p>
+		<p><label for="password">email</label> <input type="text" name="email" value="" id="pass"></p>
+		<p><button type="submit">signup</button> Already signed up? <a href="/login">login</a></p>
+	</fieldset>
+</form>

@@ -18,27 +18,3 @@
     	<% end %>
     </ul>
 </div>
-
-<script type="text/javascript" charset="utf-8"> 
-  $(document).ready(function(){
-    
-    $('#container li a:last-child').live('click', function() {
-      
-      console.warn(this.id);
-      
-      var url = (this.className == 'favourite' ? '/favourite/' : '/unfavourite/' )+this.id,
-          that = this;
-
-      $.ajax({
-        url: url,
-        error: function(request, status, error) {
-          alert(status+': '+error);
-        },
-        success: function() {
-          that.className = (that.className == 'favourite') ? 'unfavourite' : 'favourite';
-        }
-      });
-    });
-    
-  });
-</script>

@@ -50,6 +50,24 @@ $(document).keydown(function(e) {
   }
 })
 
+$('#container li a:last-child').click(function(e) {
+
+  e.preventDefault();
+
+  var url = (this.className == 'favourite' ? '/favourite/' : '/unfavourite/' ),
+      that = this;
+
+  $.ajax({
+    url: url + this.id,
+    error: function(request, status, error) {
+      alert(status+': '+error);
+    },
+    success: function() {
+      that.className = (that.className == 'favourite') ? 'unfavourite' : 'favourite';
+    }
+  });
+});
+
 
 // skip to end of track
 // $(audio)[0].currentTime = $(audio)[0].duration - 2

@@ -86,3 +86,11 @@ fieldset {
 .clear {
   clear:both;
 }
+
+#player { background: #eee; display: inline-block; margin: 0px; }
+#player a { text-decoration: none; color: #777; display: block; height: 26px; line-height: 26px; padding: 0px 8px; }
+#play-player { }
+#player #pause-player { display: none; }
+
+li.playing:before { content: '♫'; position: absolute; margin: 5px 0px 0px -26px; color: #777; font-size: 0.8em; }
+

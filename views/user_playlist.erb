@@ -1,32 +1,17 @@
+<p id="player">
 
+  <audio preload="auto" autobuffer>
+    <source src="">
+  </audio>
+
+  <a href="#" id="play-player">▶</a>
+  <a href="#" id="pause-player">❚&#x200a;❚</a>
+</p>
 <div id="container">
-  <h4><a href="/<%= @user %>"><%= @user %></a>'s playlist</h4>
+  <h4><a href="/<%= @user.id %>"><%= @user.id %></a>'s playlist</h4>
   <ul>
   	<% @mp3_files.each do |mp3| %>	
-  	  <li id="<%= mp3.id %>"><a href="<%= mp3.url %>"><%= mp3.title %></a> <span> <%= mp3.artist %></span></li>
+  	  <li><a href="<%= mp3.url %>" class="mp3"><%= mp3.title %></a> <span> <%= mp3.artist %></span></li>
   	<% end %>
   </ul>
 </div>
-<script type="text/javascript" charset="utf-8">
-  $(document).ready(function(){
-    $.ajax({
-      url: '/all.json',
-      dataType: 'json',
-      data: '',
-      success: load_playlist,
-      error: function(request, status, error) {
-        alert(status+': '+error);
-      }
-    });
-    
-    $('#jplayer_playlist input').live('click', function() {
-      var url = (this.checked == true ? '/favourite/' : '/unfavourite/' )+this.name
-      $.ajax({
-        url: url,
-        error: function(request, status, error) {
-          alert(status+': '+error);
-        }
-      });
-    });
-  });
-</script>

@@ -79,7 +79,7 @@ post '/login' do
   if user && user.password.eql?(hash_password(user.timestamp, params[:password]))
     session_start!
     session[:name] = user._id
-    flash[:notice] = "Welcome #{session[:name]}!"
+    flash.now[:notice] = "Welcome #{session[:name]}!"
     redirect '/'
   else
     flash.now[:notice] = "There was an error loging in" 
@@ -127,6 +127,9 @@ get '/' do
   unless session?
     erb :index
   else
+    #@favourites = {}
+    @user = User.find(session[:name])
+    #user.fav_mp3s.each { |mp3| @favourites[mp3] = mp3 }
     @mp3_files = Mp3File.all()
     erb :home
   end
@@ -135,23 +138,24 @@ end
 
 get '/home' do
   session!
-  @mp3_files = Mp3File.all()
-  erb :home
+  redirect '/'
 end
 
 
 get '/favourite/:id' do
   session!
   user = User.find(session[:name])
-  user.fav_mp3s << params[:id]
-  user.save
+  unless user.fav_mp3s.include?(params[:id])
+    user.fav_mp3s << params[:id]
+    user.save
+  end
 end
 
 
 get '/unfavourite/:id' do
   session!
   user = User.find(session[:name])
-  user.fav_mp3s.reject! { |id| id =~ params[:id] }
+  user.fav_mp3s.delete_if { |id| id == params[:id] }
   user.save
 end
 
@@ -190,8 +194,8 @@ end
 #Show all mp3s
 get '/:username' do
   if User.find(params[:username])
-    @mp3_files = Mp3File.all()
-    @user = params[:username]
+    @user = User.find(params[:username])
+    @mp3_files = Mp3File.all(:id => @user.fav_mp3s)
     erb :user_playlist
   else    
     not_found

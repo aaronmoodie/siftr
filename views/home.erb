@@ -14,7 +14,11 @@
   <% end %>
     <ul>
     	<% @mp3_files.each do |mp3| %>
-    	  <li><a href="<%= mp3.url %>" class="mp3"><%= mp3.title %></a> <span> <%= mp3.artist %></span> <a id="<%= mp3.id %>" href="#" <% unless @user.fav_mp3s.include?(mp3.id.to_s) %>class="favourite"<% else %>class="unfavourite"<% end %>>&#9733;</a></li>
+    	  <li>
+    	    <a href="<%= mp3.url %>" class="mp3"><%= mp3.title %></a>
+    	    <span> <%= mp3.artist %></span>
+    	    <a id="<%= mp3.id %>" href="#" class="<%= @user.fav_mp3s.include?(mp3.id.to_s) ? "unfavourite" : "favourite" %>">★</a>
+    	  </li>
     	<% end %>
     </ul>
 </div>

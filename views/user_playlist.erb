@@ -10,8 +10,12 @@
 <div id="container">
   <h4><a href="/<%= @user.id %>"><%= @user.id %></a>'s playlist</h4>
   <ul>
-  	<% @mp3_files.each do |mp3| %>	
-  	  <li><a href="<%= mp3.url %>" class="mp3"><%= mp3.title %></a> <span> <%= mp3.artist %></span></li>
+  	<% @mp3_files.each do |mp3| %>
+  	  <li>
+  	    <a href="<%= mp3.url %>" class="mp3"><%= mp3.title %></a>
+  	    <span> <%= mp3.artist %></span>
+  	    <a id="<%= mp3.id %>" href="#" class="unfavourite">★</a>
+  	  </li>
   	<% end %>
   </ul>
 </div>

@@ -4,7 +4,7 @@ def validate(url)
   response = Net::HTTP.start(url.host, url.port) {|http|
     http.head(url.path)
   }
-  
+
   case response
   when Net::HTTPSuccess
     return url
@@ -17,17 +17,17 @@ end
 
 
 def download_file(url, size)
-    
+
   request = "GET #{url} HTTP/1.0\r\n\r\n"
   host = /^https?:\/\/([^\/]+)/.match(url.to_s)
   socket = TCPSocket.open(host[1].to_s,80)
-  socket.print(request)    
+  socket.print(request)
 
   # find beginning of response body
-  buffer = ""                    
+  buffer = ""
   while !buffer.match("\r\n\r\n") do
-    buffer += socket.read(1)  
-  end           
+    buffer += socket.read(1)
+  end
 
   return socket.read(size)
 end
@@ -42,11 +42,11 @@ task :default do
         links.each do |link|
 
             url = link['href'].gsub(' ', '%20')
-            
+
             # @match = Mp3File.all(:url => url)
             # puts @match
             # if !@match
-            
+
             unless !url
               mp3_file = download_file(url, 3000)
 

@@ -9,7 +9,7 @@ class User
     key :email,         String
     key :timestamp,     String
     key :fav_mp3s,      Array
-    key :blogs,         Array 
+    key :blogs,         Array
 end
 
 class Blog
